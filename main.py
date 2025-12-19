@@ -31,6 +31,7 @@ banco.contas.append(conta_pou_cl3)
 banco.agencias.append(333)
 
 print(banco)
+
 #TESTE DE SUCESSO  
 print()
 if banco.autenticar(cliente1, conta_pou_cl1):
