@@ -6,7 +6,8 @@ class Pessoa():
     """
     def __init__(self, nome: str, idade: int):
         """
-        inicializa
+        Inicializa os objetos da classe
+
         :nome -> nome da pessoa será formato com .title() 
         :idade -> idade da pessoa 
         """
@@ -31,11 +32,14 @@ class Pessoa():
     
     @idade.setter
     def idade(self, idade : int):
-        """realiza a validação da idade de tipo e valor
-        
-        TypeError: se a idade não for um número inteiro
-        ValueError: se a idade for menor que 18 anos
         """
+        Realiza a validação da idade de tipo e valor
+        
+        Raises:
+            TypeError: se a idade não for um número inteiro
+            ValueError: se a idade for menor que 18 anos
+        """
+
         if not isinstance(idade, int):
             raise TypeError('idade é inteiro')
         if idade < 18:
@@ -47,7 +51,8 @@ class Pessoa():
         return f'{class_name}(Nome: {self.nome!r} | Idade: {self.idade!r})'
 
 class Cliente(Pessoa):
-    """Classe que representa uma pessoa do banco e herda de Pessoa
+    """
+    Classe que representa uma pessoa do banco e herda de Pessoa
     Além de nome e idade, o cliente também possui um vínculo com uma conta
     """
     def __init__(self, nome: str, idade: int):

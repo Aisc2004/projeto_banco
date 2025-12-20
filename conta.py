@@ -1,18 +1,20 @@
 from abc import ABC, abstractmethod
 
 class Conta(ABC):
-    """Classe Abstrada define estrutura base para os tipos de conta (poupança/concorrente)
-        Não pode ser instanciada diretamente
-        gerência os depósitos, saldo, agência, conta e o método abstrado sacar"""
+    """
+    Classe Abstrada que define a estrutura base para os tipos de conta (poupança/corrente)
+    Não pode ser instanciada diretamente
+    Gerência os depósitos, saldo, agência, conta e o método abstrado sacar
+    """
     def __init__(self, agencia: int, num_conta: int, saldo = 0):
         """
-        inicialização
+        Inicialização dos objetos da classe
 
         :agencia -> número da agência (inteiro)
         :num_conta -> número da conta (inteiro)
-        :saldo -> valor da conta (int ou float), por padrão 0
-        
+        :saldo -> valor da conta (int ou float), por padrão 0  
         """
+
         self.agencia = agencia
         self.num_conta = num_conta
         self._saldo = saldo 
@@ -24,9 +26,11 @@ class Conta(ABC):
         
     @agencia.setter
     def agencia(self, num_agencia : int):
-        """realiza a validação da idade de tipo
+        """
+        Realiza a validação de tipo da agência
         
-        TypeError: se o número da agência não for um inteiro
+        Raises:
+            TypeError: se o número da agência não for um inteiro
         """
         if not isinstance(num_agencia, int):
             raise TypeError('o número da agência deve ser um inteiro')
@@ -39,9 +43,11 @@ class Conta(ABC):
         
     @num_conta.setter
     def num_conta(self, num: int):
-        """realiza a validação da idade de tipo
+        """
+        Realiza a validação de tipo da num_conta
         
-        TypeError: se o número da conta não for um inteiro
+        Raises: 
+            TypeError: se o número da conta não for um inteiro
         """
         if not isinstance(num, int):
             raise TypeError('o número da conta deve ser um inteiro')
@@ -49,13 +55,18 @@ class Conta(ABC):
 
     @property
     def saldo(self):
+        """
+        Retorna o valor do saldo
+        """
         return self._saldo
 
     def depositar(self, valor: float | int):
-        """realiza a validação de tipo e valor
+        """
+        Realiza a validação de tipo e valor 
         
-        TypeError: se o valor do depósito não for um inteiro
-        ValueError: se o valor informado for negativo
+        Raises:
+            TypeError: se o valor do depósito não for um inteiro
+            ValueError: se o valor informado for negativo
         """
         if not isinstance(valor, (int, float)):
             raise TypeError('O valor digitado não é um número')
@@ -67,11 +78,15 @@ class Conta(ABC):
 
     @abstractmethod
     def sacar(self, valor: float | int):
-        """Método Abstrato para realizar saques, deve ser implementado nas subclasses (ContaPoupanca, ContaCorrente)"""
+        """
+        Método Abstrato para realizar saques, deve ser implementado nas subclasses (ContaPoupanca, ContaCorrente)
+        """
         pass
 
     def detalhes(self, msg=''):
-        """Imprime o saldo atual acompanhado de uma mensagem personalizada."""
+        """
+        Imprime o saldo atual acompanhado de uma mensagem personalizada.
+        """
         print(f'O seu saldo é {self.saldo:.2f} {msg}')
 
     def __repr__(self):
@@ -87,12 +102,13 @@ class ContaPoupanca(Conta):
         """
         Implementação do Método Abstrato sacar de Conta
         Realiza a validação de tipo e valor
-        
-        TypeError: se o valor do saque não for um inteiro
-        ValueError: se o valor do saque informado for negativo
-
         Também verifica se o valor do saque não ultrapassa o saldo do cliente
+
+        Raises:
+            TypeError: se o valor do saque não for um inteiro
+            ValueError: se o valor do saque informado for negativo
         """
+
         if not isinstance(valor, (int, float)):
             raise TypeError('o valor digitado não é um número')
         
@@ -113,10 +129,11 @@ class ContaCorrente(Conta):
     Permite que o saldo fique negativo até o limite definido.
     """
     def __init__(self, agencia : int, num_conta : int, saldo, limite=0):
-
-        """inicializa a ContaCorrente com limite extra
+        """
+        Inicializa a ContaCorrente com limite extra
         
-        :limite -> valor extra (além do saldo)"""
+        :limite -> valor extra (além do saldo)
+        """
         super().__init__(agencia, num_conta, saldo)
         self.limite = limite
 
@@ -124,12 +141,13 @@ class ContaCorrente(Conta):
         """
         Implementação do Método Abstrato sacar de Conta
         Realiza a validação de tipo e valor
-        
-        TypeError: se o valor do saque não for um inteiro
-        ValueError: se o valor do saque informado for negativo
-
         Permite o cliente sacar se o valor está dentro do limite
+        
+        Raises:
+            TypeError: se o valor do saque não for um inteiro
+            ValueError: se o valor do saque informado for negativo
         """
+        
         if not isinstance(valor, (int, float)):
             raise TypeError('o valor não é um número') 
         if valor < 0:

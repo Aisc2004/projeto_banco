@@ -72,7 +72,7 @@ if banco.autenticar(cliente3, conta_pou_cl3):
     conta_pou_cl3.sacar(345)
     conta_pou_cl3.sacar(1)
 
-#-------------------------- TESTES DE ERROS --------------------------------------
+#------------------------------------ TESTES DE ERROS --------------------------------------
 
 print('\nTIPAGEM')
 try:

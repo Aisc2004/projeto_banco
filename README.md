@@ -6,7 +6,7 @@ Este projeto simula a lógica de um sistema bancário, focando em segurança e i
 
 - **Autenticação Rigorosa:** O banco valida agência, cliente, conta e o vínculo entre eles;
 - **Tipos de Conta:** 
-        **Conta Corrente:** Possui limite extra e permite saldo negativo até esse limite,
+        **Conta Corrente:** Possui limite extra e permite saldo negativo até esse limite
         **Conta Poupança:** Bloqueia saques que deixariam o saldo negativo.
 - **Segurança de Dados:** Uso de `@property` e `@setter` com levantamento de exceções (`TypeError` e `ValueError`);
 - **Validação de Maioridade:** Bloqueio automático de cadastro para menores de 18 anos.

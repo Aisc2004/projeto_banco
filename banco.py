@@ -9,7 +9,6 @@ class Banco:
                  clientes: list[pessoa.Cliente] | None=None, 
                  contas: list[conta.Conta] | None = None):
         
-
         """
         Inicializa o Banco com listas
         
