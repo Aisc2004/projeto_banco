@@ -2,7 +2,7 @@
 
 Este projeto simula a lógica de um sistema bancário, focando em segurança e integridade de dados através dos pilares da **Programação Orientada a Objetos**.
 
-## Funcionalidades:
+## Funcionalidades
 
 - **Autenticação Rigorosa:** O banco valida agência, cliente, conta e o vínculo entre eles;
 - **Tipos de Conta:** 
