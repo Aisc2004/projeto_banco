@@ -1,18 +1,22 @@
 import conta
+ 
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 
 class Pessoa():
     """
-    Classe base para representar uma pessoa no sistema, ela realiza a validação de nome e idade
+    Classe base para representar uma pessoa no sistema, ela realiza a validação de nome e data_nascimento
     """
-    def __init__(self, nome: str, idade: int):
+    def __init__(self, nome: str, data_nascimento: str):
         """
         Inicializa os objetos da classe
 
         :nome -> nome da pessoa será formato com .title() 
-        :idade -> idade da pessoa 
+        :data_nascimento -> data_nascimento da pessoa 
         """
         self.nome = nome
-        self.idade = idade
+        self.data_nascimento = data_nascimento
+        
 
     @property
     def nome(self):
@@ -20,41 +24,55 @@ class Pessoa():
         return self._nome.title()
     
     @nome.setter
-    
     def nome(self, nome : str):
         """define o nome da pessoa"""
+        if not isinstance(nome, str):
+            raise TypeError('Tipo errado')
         self._nome = nome
 
     @property
-    def idade(self):
-        """retorna o valor da idade"""
-        return self._idade
+    def data_nascimento(self):
+        """retorna o valor da data_nascimento"""
+        return self._data_nascimento
     
-    @idade.setter
-    def idade(self, idade : int):
+    @data_nascimento.setter
+    def data_nascimento(self, valor : str):
         """
-        Realiza a validação da idade de tipo e valor
+        Realiza a validação da data_nascimento de tipo e valor
         
         Raises:
-            TypeError: se a idade não for um número inteiro
-            ValueError: se a idade for menor que 18 anos
+            TypeError: se a data_nascimento não for um número inteiro
+            ValueError: se a data_nascimento for menor que 18 anos
         """
-
-        if not isinstance(idade, int):
-            raise TypeError('idade é inteiro')
-        if idade < 18:
-            raise ValueError('idade deve ser maior que 18')    
-        self._idade = idade
+        if isinstance(valor, str):
+            try:
+                form_data = '%d/%m/%Y'
+                data = datetime.strptime(valor, form_data)
+                data_br = data.strftime(form_data)
+                print(data_br)
+            #ajeitar essa parte da raise, erro levantado está errado
+            except:
+                raise ValueError("Formato de data inválido. Use DD/MM/AAAA")
+            
+            hoje = datetime.today()
+            idade = relativedelta(hoje, data)
+            
+            if idade.years < 18:
+                raise ValueError('data_nascimento deve ser maior que 18') 
+              
+        self._data_nascimento = data_br
 
     def __repr__(self):
         class_name = type(self).__name__
-        return f'{class_name}(Nome: {self.nome!r} | Idade: {self.idade!r})'
+        return f'{class_name}(Nome: {self.nome!r} | data_nascimento: {self.data_nascimento!r})'
 
 class Cliente(Pessoa):
     """
     Classe que representa uma pessoa do banco e herda de Pessoa
-    Além de nome e idade, o cliente também possui um vínculo com uma conta
+    Além de nome e data_nascimento, o cliente também possui um vínculo com uma conta
     """
-    def __init__(self, nome: str, idade: int):
-        super().__init__(nome, idade)
+    def __init__(self, nome: str, data_nascimento: str):
+        super().__init__(nome, data_nascimento)
         self.conta : conta.Conta | None = None
+
+

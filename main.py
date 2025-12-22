@@ -6,15 +6,15 @@ import pessoa
 #inicializando o banco com agencias, contas e clientes
 banco = Banco()
 
-cliente1 = pessoa.Cliente('luiza', 20)
+cliente1 = pessoa.Cliente('luiza', '05/06/2004')
 conta_pou_cl1 = conta.ContaPoupanca(111, 123, 20)
 cliente1.conta = conta_pou_cl1
 
-cliente2 = pessoa.Cliente('Flavio', 90)
+cliente2 = pessoa.Cliente('Flavio', '05/06/1950')
 conta_cor_cl2 = conta.ContaCorrente(222, 890, 12, 90)
 cliente2.conta = conta_cor_cl2
 
-cliente3 = pessoa.Cliente('Ana', 45)
+cliente3 = pessoa.Cliente('Ana', '05/06/2001')
 conta_pou_cl3 = conta.ContaPoupanca(333, 235, 345)
 cliente3.conta = conta_pou_cl3
 
@@ -43,7 +43,7 @@ banco.autenticar(cliente1, conta_cor_cl2)
 
 #TESTE DE CLIENTE QUE NÃO ESTÁ NO BANCO
 print()
-cliente_anonimo = pessoa.Cliente('Anonimo', 43)
+cliente_anonimo = pessoa.Cliente('Anonimo', '05/06/2004')
 banco.autenticar(cliente_anonimo, conta_pou_cl3)
 
 #TESTE DE AGÊNCIA INCORRETA
@@ -76,19 +76,19 @@ if banco.autenticar(cliente3, conta_pou_cl3):
 
 print('\nTIPAGEM')
 try:
-    cliente_novo = pessoa.Cliente(67, 'carlos')
-except TypeError as e:
+    cliente_novo = pessoa.Cliente('05/06/1980', 'carlos')
+except ValueError as e:
     print(f'TESTE COM SUCESSO: {e}') 
 
 print('\nERRO DE VALOR')
 try:
-    cliente_novo = pessoa.Cliente('carlos', 17)
+    cliente_novo = pessoa.Cliente('carlos', '05/06/2009')
 except ValueError as e:
     print(f'TESTE COM SUCESSO: {e}')
 
 print('\nTIPAGEM')
 try:
-    cliente_novo = pessoa.Cliente('carlos', 18)
+    cliente_novo = pessoa.Cliente('carlos', '05/06/2004')
     conta_pou_novo = conta.ContaPoupanca('sis', 233, 0)
     cliente_novo.conta = conta_pou_novo
     banco.contas.append(conta_pou_novo)
@@ -97,7 +97,7 @@ except TypeError as e:
 
 print('\nTIPAGEM')
 try:
-    cliente_novo = pessoa.Cliente('carlos', 18)
+    cliente_novo = pessoa.Cliente('carlos', '05/06/2004')
     conta_cor_novo = conta.ContaCorrente(111, 'sis', 0, 100)
     cliente_novo.conta =conta_cor_novo
     banco.contas.append(conta_cor_novo)
