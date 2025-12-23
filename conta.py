@@ -68,6 +68,7 @@ class Conta(ABC):
             TypeError: se o valor do depósito não for um inteiro
             ValueError: se o valor informado for negativo
         """
+        
         if not isinstance(valor, (int, float)):
             raise TypeError('O valor digitado não é um número')
         if valor <= 0:

@@ -1,13 +1,13 @@
 import conta
  
-from datetime import datetime, timedelta
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 class Pessoa():
     """
     Classe base para representar uma pessoa no sistema, ela realiza a validação de nome e data_nascimento
     """
-    def __init__(self, nome: str, data_nascimento: str):
+    def __init__(self, nome: str, data_nascimento: str, senha: int):
         """
         Inicializa os objetos da classe
 
@@ -16,7 +16,7 @@ class Pessoa():
         """
         self.nome = nome
         self.data_nascimento = data_nascimento
-        
+        self._senha = senha
 
     @property
     def nome(self):
@@ -41,26 +41,37 @@ class Pessoa():
         Realiza a validação da data_nascimento de tipo e valor
         
         Raises:
-            TypeError: se a data_nascimento não for um número inteiro
+            TypeError: se a data_nascimento não for uma string
             ValueError: se a data_nascimento for menor que 18 anos
         """
-        if isinstance(valor, str):
-            try:
-                form_data = '%d/%m/%Y'
-                data = datetime.strptime(valor, form_data)
-                data_br = data.strftime(form_data)
-                print(data_br)
-            #ajeitar essa parte da raise, erro levantado está errado
-            except:
-                raise ValueError("Formato de data inválido. Use DD/MM/AAAA")
+        if not isinstance(valor, str):
+            raise TypeError('data deve ser uma string')
+        
+        try:
+            form_data = '%d/%m/%Y'
+            data = datetime.strptime(valor, form_data)
+            data_br = data.strftime(form_data)
+        except:
+            raise ValueError("Formato de data inválido. Use DD/MM/AAAA")
             
-            hoje = datetime.today()
-            idade = relativedelta(hoje, data)
+        hoje = datetime.today()
+        idade = relativedelta(hoje, data)
             
-            if idade.years < 18:
-                raise ValueError('data_nascimento deve ser maior que 18') 
+        if idade.years < 18:
+            raise ValueError('data_nascimento deve ser maior que 18') 
               
         self._data_nascimento = data_br
+
+    def verificar_senha(self, senha_digitada: str):
+        if not senha_digitada.isnumeric():
+            raise TypeError('senha deve ser um número')
+        
+        senha_int = int(senha_digitada)
+
+        return self._senha == senha_int
+
+
+        
 
     def __repr__(self):
         class_name = type(self).__name__
@@ -71,8 +82,10 @@ class Cliente(Pessoa):
     Classe que representa uma pessoa do banco e herda de Pessoa
     Além de nome e data_nascimento, o cliente também possui um vínculo com uma conta
     """
-    def __init__(self, nome: str, data_nascimento: str):
-        super().__init__(nome, data_nascimento)
+    def __init__(self, nome: str, data_nascimento: str, senha: int):
+        super().__init__(nome, data_nascimento, senha)
         self.conta : conta.Conta | None = None
+
+
 
 

@@ -8,7 +8,6 @@ class Banco:
     def __init__(self, agencias: list[int] | None =None, 
                  clientes: list[pessoa.Cliente] | None=None, 
                  contas: list[conta.Conta] | None = None):
-        
         """
         Inicializa o Banco com listas
         
@@ -45,7 +44,7 @@ class Banco:
             return True
         return False
     
-    def autenticar(self, cliente : pessoa.Cliente, conta: conta.Conta):
+    def autenticar(self, cliente : pessoa.Cliente, conta: conta.Conta, senha_digitada : int):
         """
         Realiza as validações:
         
@@ -74,6 +73,10 @@ class Banco:
             print('o cliente não está vinculado a essa conta')
             return False
 
+        if not cliente.verificar_senha(senha_digitada):
+            print('senha incorreta')
+            return False
+        
         print('autenticação concluída')
         return True
 
