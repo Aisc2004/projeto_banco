@@ -7,7 +7,7 @@ class Pessoa():
     """
     Classe base para representar uma pessoa no sistema, ela realiza a validação de nome e data_nascimento
     """
-    def __init__(self, nome: str, data_nascimento: str, senha: int):
+    def __init__(self, nome: str, data_nascimento: str, senha: int, cpf: int):
         """
         Inicializa os objetos da classe
 
@@ -17,6 +17,7 @@ class Pessoa():
         self.nome = nome
         self.data_nascimento = data_nascimento
         self._senha = senha
+        self._cpf = cpf
         self.conta_poupanca = None
         self.conta_corrente = None
 
@@ -64,7 +65,20 @@ class Pessoa():
               
         self._data_nascimento = data_br
 
+    @property
+    def cpf(self):
+        return self._cpf
+    
+    @cpf.setter
+    def cpf(self, digitos):
+        if len(digitos) < 11 or len(digitos) > 11:
+            print('quantidade de dígitos')
+        self._cpf = digitos
+
     def verificar_senha(self, senha_digitada: str):
+        if len(senha_digitada) < 4 or len(senha_digitada) > 4:
+            print('senha deve conter 4 dígitos')
+
         if not senha_digitada.isnumeric():
             raise TypeError('senha deve ser um número')
         
@@ -89,10 +103,6 @@ class Pessoa():
             return nova_corrente
         else:
             print('já possui uma conta corrente')
-    
-
-
-        
 
     def __repr__(self):
         class_name = type(self).__name__
@@ -103,8 +113,8 @@ class Cliente(Pessoa):
     Classe que representa uma pessoa do banco e herda de Pessoa
     Além de nome e data_nascimento, o cliente também possui um vínculo com uma conta
     """
-    def __init__(self, nome: str, data_nascimento: str, senha: int):
-        super().__init__(nome, data_nascimento, senha)
+    def __init__(self, nome: str, data_nascimento: str, senha: int, cpf: int):
+        super().__init__(nome, data_nascimento, senha, cpf)
         self.conta : conta.Conta | None = None
 
 
