@@ -14,7 +14,7 @@ class Conta(ABC):
         :num_conta -> número da conta (inteiro)
         :saldo -> valor da conta (int ou float), por padrão 0  
         """
-
+        self.historico = []
         self.agencia = agencia
         self.num_conta = num_conta
         self._saldo = saldo 
@@ -73,8 +73,10 @@ class Conta(ABC):
             raise TypeError('O valor digitado não é um número')
         if valor <= 0:
             raise ValueError('O valor informado não está correto')
-
+        
+        self.historico.append([f'DEPÓSITO, {valor} | TOTAL: {self._saldo}'])
         self._saldo += valor
+        
         self.detalhes(f'(DEPÓSITO {valor})')
 
     @abstractmethod
@@ -119,7 +121,8 @@ class ContaPoupanca(Conta):
         if valor > self.saldo:
             self.detalhes('SAQUE NEGADO: valor a ser retirado não é permitido') 
             return
-
+        
+        self.historico.append([f'SAQUE: {valor} | VALOR: {self._saldo}'])
         self._saldo -= valor
         self.detalhes(f'SACADO: {valor}')
         return self._saldo
