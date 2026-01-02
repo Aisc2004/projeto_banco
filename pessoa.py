@@ -17,6 +17,8 @@ class Pessoa():
         self.nome = nome
         self.data_nascimento = data_nascimento
         self._senha = senha
+        self.conta_poupanca = None
+        self.conta_corrente = None
 
     @property
     def nome(self):
@@ -69,6 +71,25 @@ class Pessoa():
         senha_int = int(senha_digitada)
 
         return self._senha == senha_int
+
+    def abrir_conta_poupanca(self, agencia, numero, saldo):
+        if self.conta_poupanca is None:
+            nova_poupanca = conta.ContaPoupanca(agencia, numero, saldo)
+            self.conta_poupanca = nova_poupanca
+            print('conta_poupança criada com sucesso')
+            return nova_poupanca
+        else:
+            print('já possui uma conta poupança')
+
+    def abrir_conta_corrente(self, agencia, numero, saldo, limite):
+        if self.conta_corrente is None:
+            nova_corrente = conta.ContaCorrente(agencia, numero, saldo, limite)
+            self.conta_corrente = nova_corrente
+            print('conta_corrente criada com sucesso')
+            return nova_corrente
+        else:
+            print('já possui uma conta corrente')
+    
 
 
         
