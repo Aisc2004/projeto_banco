@@ -74,7 +74,7 @@ class Conta(ABC):
         if valor <= 0:
             raise ValueError('O valor informado não está correto')
         
-        self.historico.append([f'DEPÓSITO, {valor} | TOTAL: {self._saldo}'])
+        self.historico.append([f'DEPÓSITO, {valor}'])
         self._saldo += valor
         
         self.detalhes(f'(DEPÓSITO {valor})')
@@ -122,7 +122,7 @@ class ContaPoupanca(Conta):
             self.detalhes('SAQUE NEGADO: valor a ser retirado não é permitido') 
             return
         
-        self.historico.append([f'SAQUE: {valor} | VALOR: {self._saldo}'])
+        self.historico.append([f'SAQUE: {valor}'])
         self._saldo -= valor
         self.detalhes(f'SACADO: {valor}')
         return self._saldo

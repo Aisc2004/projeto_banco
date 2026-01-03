@@ -40,7 +40,7 @@ class Banco:
 
     def _chegagem_conta_cliente(self, cliente, conta):
         """Verifica se a conta informada pertence ao cliente informado."""
-        if conta is cliente.conta:
+        if conta is cliente.abrir_conta_poupanca or cliente.abrir_conta_corrente:
             return True
         return False
     

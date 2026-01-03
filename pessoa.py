@@ -76,7 +76,7 @@ class Pessoa():
         self._cpf = digitos
 
     def verificar_senha(self, senha_digitada: str):
-        if len(senha_digitada) < 4 or len(senha_digitada) > 4:
+        if len(senha_digitada) != 4:
             print('senha deve conter 4 dígitos')
 
         if not senha_digitada.isnumeric():
