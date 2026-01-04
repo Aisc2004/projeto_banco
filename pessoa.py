@@ -16,8 +16,8 @@ class Pessoa():
         """
         self.nome = nome
         self.data_nascimento = data_nascimento
-        self._senha = senha
-        self._cpf = cpf
+        self.senha = senha
+        self.cpf = cpf
         self.conta_poupanca = None
         self.conta_corrente = None
 
@@ -29,8 +29,8 @@ class Pessoa():
     @nome.setter
     def nome(self, nome : str):
         """define o nome da pessoa"""
-        if not isinstance(nome, str):
-            raise TypeError('Tipo errado')
+        if not nome.isalpha():
+            raise TypeError('Nome deve ser uma string')
         self._nome = nome
 
     @property
@@ -71,20 +71,28 @@ class Pessoa():
     
     @cpf.setter
     def cpf(self, digitos):
-        if len(digitos) < 11 or len(digitos) > 11:
-            print('quantidade de dígitos')
+        if len(digitos) != 11:
+            raise ValueError('CPF deve conter 11 dígitos')
         self._cpf = digitos
 
-    def verificar_senha(self, senha_digitada: str):
+    @property
+    def senha(self):
+        return self._senha
+    
+    @senha.setter
+    def senha(self, senha_digitada: str):
         if len(senha_digitada) != 4:
-            print('senha deve conter 4 dígitos')
+            raise ValueError('senha deve conter 4 dígitos')
 
         if not senha_digitada.isnumeric():
             raise TypeError('senha deve ser um número')
         
         senha_int = int(senha_digitada)
 
-        return self._senha == senha_int
+        self._senha = senha_int
+
+    def verificar_senha(self, senha_digitada):
+        return self._senha == int(senha_digitada)
 
     def abrir_conta_poupanca(self, agencia, numero, saldo):
         if self.conta_poupanca is None:

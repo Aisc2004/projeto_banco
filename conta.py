@@ -49,6 +49,7 @@ class Conta(ABC):
         Raises: 
             TypeError: se o número da conta não for um inteiro
         """
+        
         if not isinstance(num, int):
             raise TypeError('o número da conta deve ser um inteiro')
         self._num_conta = num
@@ -174,5 +175,5 @@ class ContaCorrente(Conta):
     
     def __repr__(self):
         class_name = type(self).__name__
-        return f'{class_name}(Agencia: {self.agencia!r} | Conta: {self.num_conta!r} | Saldo: {self._saldo!r} | Limite {self.limite!r})'
+        return f'{class_name}(Agencia: {self.agencia!r} | Conta: {self.num_conta!r} | Saldo: {self._saldo!r} | Limite: {self.limite!r})'
     

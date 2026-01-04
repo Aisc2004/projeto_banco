@@ -57,24 +57,24 @@ class Banco:
         :cliente -> o objeto do cliente que tenta a operação
         """
         if not self._checagem_agencia(conta):
-            print('agencia informada não existe')
+            print('ERRO: agencia informada não existe')
             return False
 
         if not self._checagem_cliente(cliente):
-            print('o cliente informado não existe')
+            print('ERRO: o cliente informado não existe')
             return False
 
 
         if not self._checagem_conta(conta):
-            print('a conta informada não existe')
+            print('ERRP: a conta informada não existe')
             return False
         
         if not self._chegagem_conta_cliente(cliente, conta):
-            print('o cliente não está vinculado a essa conta')
+            print('ERRO: o cliente não está vinculado a essa conta')
             return False
 
         if not cliente.verificar_senha(senha_digitada):
-            print('senha incorreta')
+            print('ERRO: senha incorreta')
             return False
         
         print('autenticação concluída')
