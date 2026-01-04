@@ -67,20 +67,34 @@ class Pessoa():
 
     @property
     def cpf(self):
+        '''retorna o valor do CPF'''
         return self._cpf
     
     @cpf.setter
     def cpf(self, digitos):
+        '''Realiza a validação do CPF em valor
+        
+        Raises:
+            ValueError: se o CPF tiver menos ou mais de 11 dígitos
+        '''
         if len(digitos) != 11:
             raise ValueError('CPF deve conter 11 dígitos')
         self._cpf = digitos
 
     @property
     def senha(self):
+        '''retorna o valor da senha'''
         return self._senha
     
     @senha.setter
     def senha(self, senha_digitada: str):
+        '''
+        Realiza a validação da senha em tipo e valor
+
+        Raises:
+            ValueError: se a senha for diferente de 4 dígitos
+            TypeError: se a senha digitada em string não só números
+        '''
         if len(senha_digitada) != 4:
             raise ValueError('senha deve conter 4 dígitos')
 
@@ -92,9 +106,14 @@ class Pessoa():
         self._senha = senha_int
 
     def verificar_senha(self, senha_digitada):
+        '''Retorna booleano para a comparação'''
         return self._senha == int(senha_digitada)
 
     def abrir_conta_poupanca(self, agencia, numero, saldo):
+        '''
+        Função para abrir tipo de conta poupança verifica se a pessoa não possui a conta para gerá-la,
+        em seguida vincula com o módulo conta e atribui ao cliente a conta 
+        '''
         if self.conta_poupanca is None:
             nova_poupanca = conta.ContaPoupanca(agencia, numero, saldo)
             self.conta_poupanca = nova_poupanca
@@ -104,6 +123,10 @@ class Pessoa():
             print('já possui uma conta poupança')
 
     def abrir_conta_corrente(self, agencia, numero, saldo, limite):
+        '''
+        Função para abrir tipo de conta corrente verifica se a pessoa não possui a conta para gerá-la,
+        em seguida vincula com o módulo conta e atribui ao cliente a conta 
+        '''
         if self.conta_corrente is None:
             nova_corrente = conta.ContaCorrente(agencia, numero, saldo, limite)
             self.conta_corrente = nova_corrente

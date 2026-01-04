@@ -10,6 +10,7 @@ class Conta(ABC):
         """
         Inicialização dos objetos da classe
 
+        :historico -> lista vazia
         :agencia -> número da agência (inteiro)
         :num_conta -> número da conta (inteiro)
         :saldo -> valor da conta (int ou float), por padrão 0  
@@ -63,7 +64,8 @@ class Conta(ABC):
 
     def depositar(self, valor: float | int):
         """
-        Realiza a validação de tipo e valor 
+        Realiza a validação de tipo e valor, além disso adiciona as informações do depósito
+        no histórico
         
         Raises:
             TypeError: se o valor do depósito não for um inteiro
@@ -107,6 +109,7 @@ class ContaPoupanca(Conta):
         Implementação do Método Abstrato sacar de Conta
         Realiza a validação de tipo e valor
         Também verifica se o valor do saque não ultrapassa o saldo do cliente
+        Além disso adiciona as informações do saque no histórico
 
         Raises:
             TypeError: se o valor do saque não for um inteiro
@@ -147,6 +150,7 @@ class ContaCorrente(Conta):
         Implementação do Método Abstrato sacar de Conta
         Realiza a validação de tipo e valor
         Permite o cliente sacar se o valor está dentro do limite
+        Além disso adiciona as informações do saque no histórico
         
         Raises:
             TypeError: se o valor do saque não for um inteiro

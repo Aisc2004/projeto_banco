@@ -6,7 +6,9 @@ import random
 banco = Banco()
 
 def menu():
-
+    '''
+    Essa função gera o menu que gerencia o fluxo das atividades do banco que são: Criar Conta, Sacar, Depositar, Conferir o Histórico e Sair
+    '''
     while True:
 
         print('[1] Criar Conta')
